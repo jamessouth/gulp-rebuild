@@ -5,11 +5,10 @@ const gulp = require('gulp'),
     rename = require('gulp-rename'),
       sass = require('gulp-sass'),
   greplace = require('gulp-replace'),
-     serve = require('gulp-serve'),
+   connect = require('gulp-connect'),
       csso = require('gulp-csso'),
       maps = require('gulp-sourcemaps'),
        del = require('del');
-
 
 gulp.task('prepScripts', () => {
   return gulp.src(['js/circle/jquery-3.3.1.js', 'js/circle/circle.js', 'js/circle/autogrow.js'])
@@ -38,7 +37,8 @@ gulp.task('styles', ['prepStyles'], () => {
   return gulp.src('css/global.css')
   .pipe(csso())
   .pipe(rename('all.min.css'))
-  .pipe(gulp.dest('dist/styles'));
+  .pipe(gulp.dest('dist/styles'))
+  .pipe(connect.reload());
 });
 
 gulp.task('images', () => {
@@ -46,8 +46,6 @@ gulp.task('images', () => {
   .pipe(imagemin())
   .pipe(gulp.dest('dist/content'));
 });
-
-
 
 gulp.task('clean', () => {
   return del(['dist/*', 'js/global.js*', 'css/*']);
@@ -58,7 +56,6 @@ gulp.task('copyIcons', () => {
   .pipe(gulp.dest('dist'));
 });
 
-
 gulp.task('copyHTML', () => {
   gulp.src('index.html')
   .pipe(greplace(/images/g, 'content'))
@@ -67,36 +64,24 @@ gulp.task('copyHTML', () => {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('preBuild', ['scripts', 'styles', 'images', 'copyIcons', 'copyHTML']);
-
-gulp.task('build', ['clean'], () => {
-  gulp.start('preBuild');
+gulp.task('preBuild', ['scripts', 'styles', 'images', 'copyIcons', 'copyHTML'], () => {
+    return gulp.start('serve');
 });
 
-gulp.task('reload', ['styles'], () => {
-  gulp.start('serve');
-  setTimeout(() => {
-    console.log();
-    console.log('The server has been restarted.');
-    console.log();
-  }, 1000);
+gulp.task('build', ['clean'], () => {
+  return gulp.start('preBuild');
 });
 
 gulp.task('watchSass', () => {
-  gulp.watch('sass/**/*.s*', ['reload']);
+  return gulp.watch('sass/**/*.s*', ['styles']);
 });
 
-gulp.task('serve', serve({
+gulp.task('serve', ['watchSass'], () => {
+  connect.server({
     root: 'dist',
+    livereload: true,
     port: 3000
-}));
-
-gulp.task('default', ['build'], () => {
-  gulp.start('serve');
-  gulp.start('watchSass');
-  setTimeout(() => {
-    console.log();
-    console.log('Server is running on localhost:3000.  Press Ctrl-C to stop.  Thank you for building with gulp and have a nice day!');
-    console.log();
-  }, 1000);
+  });
 });
+
+gulp.task('default', ['build']);
