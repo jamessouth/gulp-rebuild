@@ -1,2 +1,2 @@
-# JS-Project-8
-gulp rebuild
+# gulp-rebuild
+gulp rebuild of treehouse-provided site

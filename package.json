@@ -1,5 +1,5 @@
 {
-  "name": "js-project-8",
+  "name": "gulp-rebuild",
   "version": "1.0.0",
   "description": "gulp rebuild",
   "main": "index.html",
@@ -8,25 +8,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamessouth/JS-Project-8.git"
+    "url": "git+https://github.com/jamessouth/gulp-rebuild.git"
   },
   "author": "james south",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jamessouth/JS-Project-8/issues"
+    "url": "https://github.com/jamessouth/gulp-rebuild/issues"
   },
-  "homepage": "https://github.com/jamessouth/JS-Project-8#readme",
+  "homepage": "https://github.com/jamessouth/gulp-rebuild#readme",
   "devDependencies": {
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.5.0",
+    "gulp-connect": "^5.7.0",
     "gulp-csso": "^3.0.1",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.6.1",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0"
+    "gulp-imagemin": "^6.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2"
   }
 }
